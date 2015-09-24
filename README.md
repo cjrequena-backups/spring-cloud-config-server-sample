@@ -1,5 +1,19 @@
 # sample-spring-cloud-config-server
 
+## Project structure
+```yaml
+src
+    +- main
+        +- java
+            +-com
+                +- sample
+	                +-configserver
+	                    +- MainApp.java
+	                    |
+        +- resources
+            +- application.yml
+            +- bootstrap.yml
+```
 ## Step 1
 First you have to create a maven spring boot project and add the maven dependencies.
 ```xml
