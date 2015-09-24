@@ -155,7 +155,7 @@ spring:
       config:
          server:
             git:
-               uri: https://github.com/spring-cloud-samples/config-repo
+               uri: https://github.com/cjrequena/config-repo
                #username: trolley
                #password: strongpassword
                basedir: target/config
