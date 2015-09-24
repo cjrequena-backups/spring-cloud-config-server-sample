@@ -1,6 +1,6 @@
 # sample-spring-cloud-config-server
 
-## Step 2
+## Step 1
 First you have to create a maven spring boot project and add the maven dependencies.
 ```
 #!xml
@@ -108,7 +108,7 @@ First you have to create a maven spring boot project and add the maven dependenc
 </project>
 
 ```
-## Step 1
+## Step 2
 Create the MainApp.class 
 
 ```
