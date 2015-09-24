@@ -112,7 +112,7 @@ First you have to create a maven spring boot project and add the maven dependenc
 Create the MainApp.class 
 
 ```
-#!java
+#!*.java
 package com.sample.configserver;
 
 import org.springframework.boot.SpringApplication;
