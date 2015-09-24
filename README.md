@@ -2,8 +2,7 @@
 
 ## Step 1
 First you have to create a maven spring boot project and add the maven dependencies.
-```
-#!xml
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -111,8 +110,7 @@ First you have to create a maven spring boot project and add the maven dependenc
 ## Step 2
 Create the MainApp.class 
 
-```
-#!*.java
+```java
 package com.sample.configserver;
 
 import org.springframework.boot.SpringApplication;
@@ -137,8 +135,7 @@ The @RestController annotation is a convenience annotation that does nothing mor
 The @EnableConfigServer is a Spring Cloud annotation that takes care of everything necessary to build a configuration server.
 
 ## Step 3 Create the application.yml
-```
-#!yaml
+```yaml
 server:
   port: 8888
   
@@ -162,8 +159,7 @@ spring:
 ```
 
 ## Step 4 Create the bootstrap.yml
-```
-#!yaml
+```yaml
 spring:
   application:
     name: configserver
