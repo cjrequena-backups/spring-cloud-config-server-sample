@@ -9,6 +9,7 @@ logging:
     com.netflix.discovery: 'OFF'
     org.springframework.cloud: 'DEBUG'
   
+---
 spring:
    cloud:
       config:

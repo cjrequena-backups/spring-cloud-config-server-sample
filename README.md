@@ -21,7 +21,7 @@ First you have to create a maven spring boot project and add the maven dependenc
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sample</groupId>
-	<artifactId>sample-spring-cloud-1.0.x-config-server</artifactId>
+	<artifactId>sample-spring-cloud-config-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<developers>
 		<developer>
@@ -63,6 +63,11 @@ First you have to create a maven spring boot project and add the maven dependenc
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
@@ -72,11 +77,6 @@ First you have to create a maven spring boot project and add the maven dependenc
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -104,7 +104,9 @@ First you have to create a maven spring boot project and add the maven dependenc
 				<version>2.7</version>
 				<configuration>
 					<jeeversion>${java.version}</jeeversion>
-					<manifest>${project.basedir}/src/main/resources/META-INF/MANIFEST.MF</manifest>
+					<manifest>
+						${project.basedir}/src/main/resources/META-INF/MANIFEST.MF
+					</manifest>
 					<downloadSources>false</downloadSources>
 					<downloadJavadocs>false</downloadJavadocs>
 					<additionalProjectFacets>
