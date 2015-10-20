@@ -31,9 +31,19 @@ First you have to create a maven spring boot project and add the maven dependenc
 			<organizationUrl></organizationUrl>
 		</developer>
 	</developers>
+	<scm>
+		<connection>scm:git:git//github.com/cjrequena/sample-spring-cloud-config-server.git</connection>
+		<developerConnection>scm:git:git@github.com:cjrequena/sample-spring-cloud-config-server.git</developerConnection>
+		<url>https://github.com/cjrequena/sample-spring-cloud-config-server.git</url>
+	</scm>
+	<ciManagement>
+		<system></system>
+		<url></url>
+	</ciManagement>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<start-class>com.sample.configserver.ConfigServerMainApp</start-class>
 		<spring-boot.version>1.2.6.RELEASE</spring-boot.version>
 		<spring-cloud.version>1.0.0.RELEASE</spring-cloud.version>
 		<lombok.version>1.16.6</lombok.version>
@@ -87,7 +97,14 @@ First you have to create a maven spring boot project and add the maven dependenc
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
+			<!-- -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -98,25 +115,87 @@ First you have to create a maven spring boot project and add the maven dependenc
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
+			<!-- -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.7</version>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
 				<configuration>
-					<jeeversion>${java.version}</jeeversion>
-					<manifest>
-						${project.basedir}/src/main/resources/META-INF/MANIFEST.MF
-					</manifest>
-					<downloadSources>false</downloadSources>
-					<downloadJavadocs>false</downloadJavadocs>
-					<additionalProjectFacets>
-						<useProjectReferences>true</useProjectReferences>
-					</additionalProjectFacets>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Specification-Title>${project.artifactId}</Specification-Title>
+							<Specification-Version>${project.version}</Specification-Version>
+							<Implementation-Title>${project.groupId}.${project.artifactId}</Implementation-Title>
+							<Implementation-Version>${git.revision}</Implementation-Version>
+							<Implementation-Build>${git.buildnumber}</Implementation-Build>
+							<Implementation-Vendor-Id></Implementation-Vendor-Id>
+							<X-Git-Branch>${git.branch}</X-Git-Branch>
+							<X-Git-Tag>${git.tag}</X-Git-Tag>
+							<X-Git-Commits-Count>${git.commitsCount}</X-Git-Commits-Count>
+						</manifestEntries>
+					</archive>
 				</configuration>
 			</plugin>
+			<!-- enable JGit plugin -->
+			<plugin>
+				<groupId>ru.concerteza.buildnumber</groupId>
+				<artifactId>maven-jgit-buildnumber-plugin</artifactId>
+				<version>1.2.9</version>
+				<executions>
+					<execution>
+						<id>git-buildnumber</id>
+						<goals>
+							<goal>extract-buildnumber</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<javaScriptBuildnumberCallback>
+								branch + "_" +
+								revision.substring(10, 20) + "_" +
+								shortRevision + "_" +
+								commitsCount*42
+							</javaScriptBuildnumberCallback>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.codehaus.mojo</groupId> -->
+			<!-- <artifactId>buildnumber-maven-plugin</artifactId> -->
+			<!-- <version>1.3</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <phase>validate</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>create</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- <configuration> -->
+			<!-- <doCheck>false</doCheck> -->
+			<!-- <doUpdate>false</doUpdate> -->
+			<!-- <timestampFormat>{0,date,yyyy-MM-dd HH:mm:ss}</timestampFormat> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+			<!-- -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>${start-class}</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
