@@ -8,7 +8,7 @@ src
             +-com
                 +- sample
 	                +-configserver
-	                    +- MainApp.java
+	                    +- ConfigServerMainApp.java
 	                    |
         +- resources
             +- application.yml
@@ -203,7 +203,7 @@ First you have to create a maven spring boot project and add the maven dependenc
 
 ```
 ## Step 2
-Create the MainApp.class 
+Create the ConfigServerMainApp.class 
 
 ```java
 package com.sample.configserver;
@@ -216,9 +216,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 @EnableConfigServer
-public class MainApp {
+public class ConfigServerMainApp {
 	public static void main(String[] args) {
-		SpringApplication.run(MainApp.class, args);
+		SpringApplication.run(ConfigServerMainApp.class, args);
 	}
 }
 
