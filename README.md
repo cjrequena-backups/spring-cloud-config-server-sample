@@ -1,4 +1,4 @@
-# sample-spring-cloud-config-server
+# spring-cloud-config-server-sample
 
 ## Project structure
 ```yaml
@@ -21,7 +21,7 @@ First you have to create a maven spring boot project and add the maven dependenc
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sample</groupId>
-	<artifactId>sample-spring-cloud-config-server</artifactId>
+	<artifactId>spring-cloud-config-server-sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<developers>
 		<developer>
@@ -32,9 +32,9 @@ First you have to create a maven spring boot project and add the maven dependenc
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:git//github.com/cjrequena/sample-spring-cloud-config-server.git</connection>
-		<developerConnection>scm:git:git@github.com:cjrequena/sample-spring-cloud-config-server.git</developerConnection>
-		<url>https://github.com/cjrequena/sample-spring-cloud-config-server.git</url>
+		<connection>scm:git:git//github.com/cjrequena/spring-cloud-config-server-sample.git</connection>
+		<developerConnection>scm:git:git@github.com:cjrequena/spring-cloud-config-server-sample.git</developerConnection>
+		<url>https://github.com/cjrequena/spring-cloud-config-server-sample.git</url>
 	</scm>
 	<ciManagement>
 		<system></system>
