@@ -8,7 +8,7 @@ src
             +-com
                 +- sample
 	                +-configserver
-	                    +- ConfigServerMainApp.java
+	                    +- ConfigServerApplication.java
 	                    |
         +- resources
             +- application.yml
