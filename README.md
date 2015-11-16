@@ -32,9 +32,9 @@ First you have to create a maven spring boot project and add the maven dependenc
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:git//github.com/cjrequena/spring-cloud-config-server-sample.git</connection>
-		<developerConnection>scm:git:git@github.com:cjrequena/spring-cloud-config-server-sample.git</developerConnection>
-		<url>https://github.com/cjrequena/spring-cloud-config-server-sample.git</url>
+		<connection>scm:git:git//github.com/cjrequena/sample-spring-cloud-config-server.git</connection>
+		<developerConnection>scm:git:git@github.com:cjrequena/sample-spring-cloud-config-server.git</developerConnection>
+		<url>https://github.com/cjrequena/sample-spring-cloud-config-server.git</url>
 	</scm>
 	<ciManagement>
 		<system></system>
@@ -43,7 +43,7 @@ First you have to create a maven spring boot project and add the maven dependenc
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<start-class>com.sample.configserver.ConfigServerMainApp</start-class>
+		<start-class>com.sample.configserver.ConfigServerApplication</start-class>
 		<spring-boot.version>1.2.6.RELEASE</spring-boot.version>
 		<spring-cloud.version>1.0.0.RELEASE</spring-cloud.version>
 		<lombok.version>1.16.6</lombok.version>
@@ -130,61 +130,34 @@ First you have to create a maven spring boot project and add the maven dependenc
 							<Specification-Title>${project.artifactId}</Specification-Title>
 							<Specification-Version>${project.version}</Specification-Version>
 							<Implementation-Title>${project.groupId}.${project.artifactId}</Implementation-Title>
-							<Implementation-Version>${git.revision}</Implementation-Version>
-							<Implementation-Build>${git.buildnumber}</Implementation-Build>
-							<Implementation-Vendor-Id></Implementation-Vendor-Id>
-							<X-Git-Branch>${git.branch}</X-Git-Branch>
-							<X-Git-Tag>${git.tag}</X-Git-Tag>
-							<X-Git-Commits-Count>${git.commitsCount}</X-Git-Commits-Count>
+							<Implementation-Build>${buildNumber}</Implementation-Build>
+							<Build-Number>${buildNumber}</Build-Number>
 						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
-			<!-- enable JGit plugin -->
 			<plugin>
-				<groupId>ru.concerteza.buildnumber</groupId>
-				<artifactId>maven-jgit-buildnumber-plugin</artifactId>
-				<version>1.2.9</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.3</version>
 				<executions>
 					<execution>
-						<id>git-buildnumber</id>
+						<phase>validate</phase>
 						<goals>
-							<goal>extract-buildnumber</goal>
+							<goal>create</goal>
 						</goals>
-						<phase>prepare-package</phase>
-						<configuration>
-							<javaScriptBuildnumberCallback>
-								branch + "_" +
-								revision.substring(10, 20) + "_" +
-								shortRevision + "_" +
-								commitsCount*42
-							</javaScriptBuildnumberCallback>
-						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+					<timestampFormat>{0,date,yyyy-MM-dd HH:mm:ss}</timestampFormat>
+				</configuration>
 			</plugin>
-			<!-- <plugin> -->
-			<!-- <groupId>org.codehaus.mojo</groupId> -->
-			<!-- <artifactId>buildnumber-maven-plugin</artifactId> -->
-			<!-- <version>1.3</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <phase>validate</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>create</goal> -->
-			<!-- </goals> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- <configuration> -->
-			<!-- <doCheck>false</doCheck> -->
-			<!-- <doUpdate>false</doUpdate> -->
-			<!-- <timestampFormat>{0,date,yyyy-MM-dd HH:mm:ss}</timestampFormat> -->
-			<!-- </configuration> -->
-			<!-- </plugin> -->
-			<!-- -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
 				<configuration>
 					<mainClass>${start-class}</mainClass>
 				</configuration>
@@ -203,24 +176,25 @@ First you have to create a maven spring boot project and add the maven dependenc
 
 ```
 ## Step 2
-Create the ConfigServerMainApp.class 
+Create the ConfigServerApplication.class 
 
 ```java
 package com.sample.configserver;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.config.server.EnableConfigServer;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
-@RestController
+@Configuration
+@EnableAutoConfiguration
 @EnableConfigServer
-public class ConfigServerMainApp {
+public class ConfigServerApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(ConfigServerMainApp.class, args);
+		SpringApplication.run(ConfigServerApplication.class, args);
 	}
 }
+
 
 ```
 The @SpringBootApplication annotation is equivalent to using @Configuration, @EnableAutoConfiguration and @ComponentScan with their default attributes:
